@@ -1,0 +1,13 @@
+@import "colors";
+
+@mixin shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0-0.2);
+}
+
+//contenedores
+@mixin card {
+  padding: 32px;
+  background: $base; //importamos de colors: $base
+  border-radius: 8px;
+  @include shadow;
+}

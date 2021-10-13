@@ -1,0 +1,16 @@
+//app del tipo elemento a
+.app-a {
+  color: $primary;
+  transition: 0.25s;
+  cursor: pointer;
+  margin-right: 1em;
+
+  //cuando pase el cursor del mouse por el elemento, entonces:
+  &:hover {
+    color: $primary-dark;
+  }
+  //cuando se de clic con el mouse en el elemento, entonces:
+  &_active {
+    color: $primary-dark;
+  }
+}
