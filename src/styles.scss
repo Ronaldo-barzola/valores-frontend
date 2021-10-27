@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
 // @import "styles/main.scss";
+[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+    background-color: #59C3B7;
+    border-color: #59C3B7;
+}
+
+nz-button-group [nz-button] {
+    margin-right: 0;
+}
+
+.ant-menu.ant-menu-dark {
+    background-color: #59C3B7;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    background-color: #57b2a7;
+}

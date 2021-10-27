@@ -16,18 +16,37 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProcesoComponent } from './pages/proceso/proceso.component';
+import { ObtencionDeudaComponent } from './pages/obtencion-deuda/obtencion-deuda.component';
+import { ListadoContribComponent } from './pages/listado-contrib/listado-contrib.component';
+import { DeudaContribComponent } from './pages/deuda-contrib/deuda-contrib.component';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+// Import what you need. RECOMMENDED. ✔️
+import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill ];
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, SidebarComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    SidebarComponent,
+    NavbarComponent,
+    ProcesoComponent,
+    ObtencionDeudaComponent,
+    ListadoContribComponent,
+    DeudaContribComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,9 +57,11 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    DemoNgZorroAntdModule
+    DemoNgZorroAntdModule,
+    ReactiveFormsModule,
+    NzIconModule.forRoot(icons),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
