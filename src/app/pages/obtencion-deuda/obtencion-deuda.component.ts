@@ -94,9 +94,13 @@ export class ObtencionDeudaComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true],
+      tipoContri: [null, [Validators.required]],
+      tipoValor: [null, [Validators.required]],
+      anioDesde: [null, [Validators.required]],
+      anioHasta: [null, [Validators.required]],
+      montoDesde: [null, [Validators.required]],
+      montoHasta: [null, [Validators.required]],
+      
     });
   }
 }

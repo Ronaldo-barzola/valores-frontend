@@ -6,7 +6,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Contribuyente</nz-form-label>
                     <nz-form-control>
-                        <nz-select name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoContri" name="select-validate" [ngModel]="'Option 2'">
                             <nz-option nzValue="Principales" nzLabel="Principales"></nz-option>
                             <nz-option nzValue="Medianos" nzLabel="Medianos"></nz-option>
                             <nz-option nzValue="Pequeños" nzLabel="Pequeños"></nz-option>
@@ -18,7 +18,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Valor</nz-form-label>
                     <nz-form-control>
-                        <nz-select name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoValor" name="select-validate" [ngModel]="'Option 2'">
                             <nz-option nzValue="Orden de Pago" nzLabel="Orden de Pago"></nz-option>
                             <nz-option nzValue="Resolución de Det." nzLabel="Resolución de Det."></nz-option>
                         </nz-select>
@@ -28,12 +28,12 @@
             <div nz-col class="gutter-row" [nzSpan]="5">
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="email">Años a procesar &nbsp;</nz-form-label>
-                    <nz-form-control [nzSm]="6" nzErrorTip="The input is not valid E-mail!">
-                        <input id="note" type="text" nz-input formControlName="note" />
+                    <nz-form-control [nzSm]="6">
+                        <input id="note" type="text" nz-input formControlName="anioDesde" />
                     </nz-form-control>
                     <label>&nbsp;-&nbsp;</label>
                     <nz-form-control [nzSm]="6">
-                        <input id="note" type="text" nz-input formControlName="note" />
+                        <input id="note" type="text" nz-input formControlName="anioHasta" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -41,11 +41,11 @@
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="email">Rango montos &nbsp;</nz-form-label>
                     <nz-form-control [nzSm]="6" nzErrorTip="The input is not valid E-mail!">
-                        <input id="note" type="text" nz-input formControlName="note" />
+                        <input id="note" type="text" nz-input formControlName="montoDesde" />
                     </nz-form-control>
                     <label>&nbsp;-&nbsp;</label>
                     <nz-form-control [nzSm]="6">
-                        <input id="note" type="text" nz-input formControlName="note" />
+                        <input id="note" type="text" nz-input formControlName="montoHasta" />
                     </nz-form-control>
                 </nz-form-item>
             </div>

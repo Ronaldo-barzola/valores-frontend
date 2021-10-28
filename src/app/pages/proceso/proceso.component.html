@@ -6,7 +6,7 @@
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="email">Fecha &nbsp;</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-                        <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+                        <nz-date-picker formControlName="fecha" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -14,7 +14,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Contribuyente</nz-form-label>
                     <nz-form-control>
-                        <nz-select name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoContri" name="select-validate" [ngModel]="'Option 2'">
                             <nz-option nzValue="Principales" nzLabel="Principales"></nz-option>
                             <nz-option nzValue="Medianos" nzLabel="Medianos"></nz-option>
                             <nz-option nzValue="Pequeños" nzLabel="Pequeños"></nz-option>
@@ -26,7 +26,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Valor</nz-form-label>
                     <nz-form-control>
-                        <nz-select name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoValor" name="select-validate" [ngModel]="'Option 2'">
                             <nz-option nzValue="Orden de Pago" nzLabel="Orden de Pago"></nz-option>
                             <nz-option nzValue="Resolución de Det." nzLabel="Resolución de Det."></nz-option>
                         </nz-select>
@@ -38,16 +38,15 @@
             <div nz-col class="gutter-row" [nzSpan]="12">
                 <nz-form-item>
                     <nz-form-label nzRequired>Contribuyente &nbsp;</nz-form-label>
-                    <nz-form-control [nzSm]="4" nzErrorTip="The input is not valid E-mail!">
-                        <input id="note" type="text" nz-input formControlName="p_codcon" />
+                    <nz-form-control [nzSm]="4">
+                        <input id="note" type="text" nz-input formControlName="codigoContri" />
                     </nz-form-control>
                     <nz-form-label nzRequired><i nz-icon nzType="search" nzTheme="outline"></i> &nbsp;</nz-form-label>
-                    <nz-form-control [nzSm]="14" nzErrorTip="The input is not valid E-mail!">
-                        <input id="note" type="text" nz-input />
+                    <nz-form-control [nzSm]="14">
+                        <input id="note" type="text" nz-input formControlName="nombreContri" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
-
         </div>
     </form>
 </nz-card>
@@ -66,29 +65,13 @@
         </tr>
     </thead>
     <tbody>
-        <!-- <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.age }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>
-                <a>Action 一 {{ data.name }}</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-            </td>
-        </tr> -->
     </tbody>
 </nz-table>
 
 <button nz-button nzType="primary" [nzSize]="size">
     Buscar
 </button>
-<button nz-button nzType="primary" [nzSize]="size">
+<button routerLink="/obtencion-deuda" nz-button nzType="primary" [nzSize]="size">
     Nuevo
 </button>
 <button nz-button nzType="primary" [nzSize]="size">

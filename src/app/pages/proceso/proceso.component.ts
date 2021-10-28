@@ -18,6 +18,7 @@ export class ProcesoComponent implements OnInit {
   validateForm!: FormGroup;
   size: NzButtonSize = 'small';
   date = null;
+  
 
   onChange(result: Date): void {
     console.log('onChange: ', result);
@@ -57,10 +58,13 @@ export class ProcesoComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
+      fecha: [null, [Validators.required]],
+      tipoContri: [null, [Validators.required]],
+      tipoValor: [null, [Validators.required]],
+      codigoContri: [null, [Validators.required]],
+      nombreContri: [null, [Validators.required]],
     });
   }
 }
