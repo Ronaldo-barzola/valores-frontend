@@ -56,10 +56,10 @@
 <nz-table #basicTable [nzData]="listOfData">
     <thead>
         <tr>
-            <th>Código</th>
-            <th>Nombre o Razon Social</th>
-            <th>Monto</th>
-            <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th style="text-align:center;">Código</th>
+            <th style="text-align:center;">Nombre o Razon Social</th>
+            <th style="text-align:center;">Monto</th>
+            <th style="text-align:center;" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
         </tr>
     </thead>
     <tbody>
