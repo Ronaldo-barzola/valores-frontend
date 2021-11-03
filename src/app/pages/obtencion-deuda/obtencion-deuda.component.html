@@ -6,7 +6,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Contribuyente</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoContri" name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoContri" name="select-validate" [(ngModel)]="filterTipoContrib">
                             <nz-option nzValue="Principales" nzLabel="Principales"></nz-option>
                             <nz-option nzValue="Medianos" nzLabel="Medianos"></nz-option>
                             <nz-option nzValue="Pequeños" nzLabel="Pequeños"></nz-option>
@@ -18,9 +18,9 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Valor</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoValor" name="select-validate" [ngModel]="'Option 2'">
-                            <nz-option nzValue="Orden de Pago" nzLabel="Orden de Pago"></nz-option>
-                            <nz-option nzValue="Resolución de Det." nzLabel="Resolución de Det."></nz-option>
+                        <nz-select formControlName="tipoValor" name="select-validate" [(ngModel)]="filterTipoValor">
+                            <nz-option nzValue="1" nzLabel="Orden de Pago"></nz-option>
+                            <nz-option nzValue="2" nzLabel="Resolución de Det."></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -29,11 +29,11 @@
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="email">Años a procesar &nbsp;</nz-form-label>
                     <nz-form-control [nzSm]="6">
-                        <input id="note" type="text" nz-input formControlName="anioDesde" />
+                        <input id="note" type="text" nz-input formControlName="anioDesde" [(ngModel)]="filterAnioDesde" />
                     </nz-form-control>
                     <label>&nbsp;-&nbsp;</label>
                     <nz-form-control [nzSm]="6">
-                        <input id="note" type="text" nz-input formControlName="anioHasta" />
+                        <input id="note" type="text" nz-input formControlName="anioHasta" [(ngModel)]="filterAnioHasta" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -41,11 +41,11 @@
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="email">Rango montos &nbsp;</nz-form-label>
                     <nz-form-control [nzSm]="6" nzErrorTip="The input is not valid E-mail!">
-                        <input id="note" type="text" nz-input formControlName="montoDesde" />
+                        <input id="note" type="text" nz-input formControlName="montoDesde" [(ngModel)]="filterMontoDesde" />
                     </nz-form-control>
                     <label>&nbsp;-&nbsp;</label>
                     <nz-form-control [nzSm]="6">
-                        <input id="note" type="text" nz-input formControlName="montoHasta" />
+                        <input id="note" type="text" nz-input formControlName="montoHasta" [(ngModel)]="filterMontoHasta" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -59,30 +59,24 @@
             <th>Código</th>
             <th>Nombre o Razon Social</th>
             <th>Monto</th>
-            <th [nzSelections]="listOfSelection" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
         </tr>
     </thead>
     <tbody>
-        <!-- <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.age }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>{{ data.address }}</td>
-            <td>
-                <a>Action 一 {{ data.name }}</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-            </td>
-        </tr> -->
+        <tr *ngFor="let data of dataListadoAcumuladoFinal">
+            <td style="text-align:center;">{{ data.codcon }}</td>
+            <td style="text-align:center;">{{ data.razsoc }}</td>
+            <td style="text-align:center;">S/ {{ data.monsum | number: '1.2-2' }}</td>
+            <td
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzDisabled]="data.disabled"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
+        </tr>
     </tbody>
 </nz-table>
 
-<button nz-button nzType="primary" [nzSize]="size">
+<button nz-button nzType="primary" [nzSize]="size" (click)="filtraInformacion()">
     Procesar
 </button>
 <button nz-button nzType="primary" [nzSize]="size">

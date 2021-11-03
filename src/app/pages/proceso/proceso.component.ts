@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 
 interface Person {
@@ -18,6 +20,7 @@ export class ProcesoComponent implements OnInit {
   validateForm!: FormGroup;
   size: NzButtonSize = 'small';
   date = null;
+  dataProceso: any;
   
 
   onChange(result: Date): void {
@@ -55,9 +58,11 @@ export class ProcesoComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
+
+    this.loadDataProceso();
 
     this.validateForm = this.fb.group({
       fecha: [null, [Validators.required]],
@@ -66,5 +71,18 @@ export class ProcesoComponent implements OnInit {
       codigoContri: [null, [Validators.required]],
       nombreContri: [null, [Validators.required]],
     });
+  }
+
+  loadDataProceso(){
+    const data_post = {};
+
+    this.api.getDataProceso(data_post).subscribe((data: any) => {
+      console.log(data);
+      this.dataProceso = data;
+    });
+  }
+
+  detalleProceso(numpro: number){
+    this.router.navigate(['/listado-contrib', numpro]);
   }
 }

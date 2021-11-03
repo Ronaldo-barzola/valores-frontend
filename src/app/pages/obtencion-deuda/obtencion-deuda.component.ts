@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 
 interface ItemData {
@@ -90,9 +92,24 @@ export class ObtencionDeudaComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) {}
+  dataListado: any;
+  dataListadoFilter: any = [];
+  dataListadoFilter2: any = [];
+  dataListadoAcumulado: any = [];
+  dataListadoAcumuladoFinal: any = [];
+
+  filterTipoContrib: string = '';
+  filterTipoValor: string = '';
+  filterAnioDesde: string = '';
+  filterAnioHasta: string = '';
+  filterMontoDesde: string = '';
+  filterMontoHasta: string = '';
+
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+
+
     this.validateForm = this.fb.group({
       tipoContri: [null, [Validators.required]],
       tipoValor: [null, [Validators.required]],
@@ -101,6 +118,72 @@ export class ObtencionDeudaComponent implements OnInit {
       montoDesde: [null, [Validators.required]],
       montoHasta: [null, [Validators.required]],
       
+    });
+  }
+
+  filtraInformacion(){
+    this.dataListado = [];
+    this.dataListadoFilter = [];
+    this.dataListadoFilter2 = [];
+    this.dataListadoAcumulado = [];
+    this.dataListadoAcumuladoFinal = [];
+
+    console.log({
+      tipocontrib: this.filterTipoContrib,
+      tipovalor: this.filterTipoValor,
+      aniodesde: this.filterAnioDesde,
+      aniohasta: this.filterAnioHasta,
+      montodesde: this.filterMontoDesde,
+      montohasta: this.filterMontoHasta
+    });
+
+    const data_post = {};
+
+    this.api.getDataListado(data_post).subscribe((data: any) => {
+      console.log(data);
+      this.dataListado = data;
+
+      this.dataListado.forEach((element: any) => {
+        if(element.nompro == this.filterTipoValor && element.anoges >= parseInt(this.filterAnioDesde) && element.anoges <= parseInt(this.filterAnioHasta)){
+          this.dataListadoFilter.push(element);
+          this.dataListadoFilter2.push(element);
+        }
+      });
+
+      this.dataListadoFilter.forEach((element: any) => {
+        let acumuladoMoncin = 0;
+
+        this.dataListadoFilter2.forEach((element2: any) => {
+          if(element.codcon == element2.codcon){
+            acumuladoMoncin = (acumuladoMoncin + parseFloat(element2.moncin));
+          }
+        });
+
+        if(acumuladoMoncin >= parseFloat(this.filterMontoDesde) && acumuladoMoncin <= parseFloat(this.filterMontoHasta)){
+          this.dataListadoAcumulado.push({
+            codcon: element.codcon,
+            razsoc: element.razsoc,
+            monsum: acumuladoMoncin
+          });
+        }
+      });
+
+      const removeDupliactes = (values: any) => {
+        let concatArray = values.map((eachValue: any) => {
+          return Object.values(eachValue).join('')
+        })
+        let filterValues = values.filter((value: any, index: any) => {
+          return concatArray.indexOf(concatArray[index]) === index
+      
+        })
+        return filterValues
+      }
+      
+      this.dataListadoAcumuladoFinal = removeDupliactes(this.dataListadoAcumulado);
+
+      console.log(this.dataListadoFilter);
+      console.log(this.dataListadoAcumulado);
+      console.log(this.dataListadoAcumuladoFinal);
     });
   }
 }

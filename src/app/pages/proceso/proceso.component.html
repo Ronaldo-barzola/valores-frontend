@@ -50,21 +50,32 @@
         </div>
     </form>
 </nz-card>
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="dataProceso">
     <thead>
         <tr>
-            <th>Proceso</th>
-            <th>Fecha</th>
-            <th>Tipo de Contribuyente</th>
-            <th>Tipo Valor</th>
-            <th>Año Ini.</th>
-            <th>Año Fin</th>
-            <th>Monto Ini.</th>
-            <th>Monto Fin</th>
-            <th>Cantidad</th>
+            <th style="text-align:center;">Proceso</th>
+            <th style="text-align:center;">Fecha</th>
+            <th style="text-align:center;">Tipo de Contribuyente</th>
+            <th style="text-align:center;">Tipo Valor</th>
+            <th style="text-align:center;">Año Ini.</th>
+            <th style="text-align:center;">Año Fin</th>
+            <th style="text-align:center;">Monto Ini.</th>
+            <th style="text-align:center;">Monto Fin</th>
+            <th style="text-align:center;">Cantidad</th>
         </tr>
     </thead>
     <tbody>
+        <tr *ngFor="let data of dataProceso" (click)="detalleProceso(data.numpro)" style="cursor:pointer;">
+            <td style="text-align:center;">{{data.numpro}}</td>
+            <td style="text-align:center;">{{data.fecpro}}</td>
+            <td style="text-align:center;">{{data.tipcon}}</td>
+            <td style="text-align:center;">{{data.tipval}}</td>
+            <td style="text-align:center;">{{data.anoini}}</td>
+            <td style="text-align:center;">{{data.anofin}}</td>
+            <td style="text-align:center;">{{data.monini}}</td>
+            <td style="text-align:center;">{{data.monfin}}</td>
+            <td style="text-align:center;">{{data.canpro}}</td>
+        </tr>
     </tbody>
 </nz-table>
 
