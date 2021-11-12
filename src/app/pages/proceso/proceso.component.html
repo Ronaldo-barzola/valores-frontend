@@ -1,12 +1,20 @@
 <h4 style="text-align: center;">MANTENIMIENTO PROCESO DE DEUDA - VALORES</h4>
 <nz-card style="width:100%;" nzTitle="Filtros de búsqueda">
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <div nz-row [nzGutter]="16">
+        <div nz-row [nzGutter]="20">
             <div nz-col class="gutter-row" [nzSpan]="4">
                 <nz-form-item>
-                    <nz-form-label nzRequired nzFor="email">Fecha &nbsp;</nz-form-label>
+                    <nz-form-label nzRequired nzFor="email">Fecha Inicio</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-                        <nz-date-picker formControlName="fecha" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+                        <nz-date-picker formControlName="fecha" [(ngModel)]="fecIni" (ngModelChange)="onChange($event)"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label nzRequired nzFor="">Fecha Fin</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                        <nz-date-picker formControlName="fecha" [(ngModel)]="fecFin" (ngModelChange)="onChange($event)"></nz-date-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -14,7 +22,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Contribuyente</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoContri" name="select-validate" [ngModel]="'Option 2'">
+                        <nz-select formControlName="tipoContri" name="select-validate" [(ngModel)]="tipoContrib" [nzDisabled]="true">
                             <nz-option nzValue="Principales" nzLabel="Principales"></nz-option>
                             <nz-option nzValue="Medianos" nzLabel="Medianos"></nz-option>
                             <nz-option nzValue="Pequeños" nzLabel="Pequeños"></nz-option>
@@ -26,9 +34,9 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de Valor</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoValor" name="select-validate" [ngModel]="'Option 2'">
-                            <nz-option nzValue="Orden de Pago" nzLabel="Orden de Pago"></nz-option>
-                            <nz-option nzValue="Resolución de Det." nzLabel="Resolución de Det."></nz-option>
+                        <nz-select formControlName="tipoValor" name="select-validate" [(ngModel)]="tipoValor">
+                            <nz-option nzValue="1" nzLabel="Impuesto Predial"></nz-option>
+                            <nz-option nzValue="3" nzLabel="Arbitrios"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -55,7 +63,7 @@
         <tr>
             <th style="text-align:center;">Proceso</th>
             <th style="text-align:center;">Fecha</th>
-            <th style="text-align:center;">Tipo de Contribuyente</th>
+            <!-- <th style="text-align:center;">Tipo de Contribuyente</th> -->
             <th style="text-align:center;">Tipo Valor</th>
             <th style="text-align:center;">Año Ini.</th>
             <th style="text-align:center;">Año Fin</th>
@@ -65,21 +73,21 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataProceso" (click)="detalleProceso(data.numpro)" style="cursor:pointer;">
-            <td style="text-align:center;">{{data.numpro}}</td>
-            <td style="text-align:center;">{{data.fecpro}}</td>
-            <td style="text-align:center;">{{data.tipcon}}</td>
-            <td style="text-align:center;">{{data.tipval}}</td>
-            <td style="text-align:center;">{{data.anoini}}</td>
-            <td style="text-align:center;">{{data.anofin}}</td>
-            <td style="text-align:center;">{{data.monini}}</td>
-            <td style="text-align:center;">{{data.monfin}}</td>
-            <td style="text-align:center;">{{data.canpro}}</td>
+        <tr *ngFor="let data of dataProceso" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
+            <td style="text-align:center;">{{data.pdl_id}}</td>
+            <td style="text-align:center;">{{data.pdl_fecpro | date:'Y-MM-dd'}}</td>
+            <!-- <td style="text-align:center;">{{data.pdl_tipcon}}</td> -->
+            <td style="text-align:center;">{{traduceTipVal(data.pdl_tipval)}}</td>
+            <td style="text-align:center;">{{data.pdl_anoini}}</td>
+            <td style="text-align:center;">{{data.pdl_anofin}}</td>
+            <td style="text-align:center;">S/ {{data.pdl_monini | number: '1.2-2'}}</td>
+            <td style="text-align:center;">S/ {{data.pdl_monfin | number: '1.2-2'}}</td>
+            <td style="text-align:center;">{{data.pdl_cancon}}</td>
         </tr>
     </tbody>
 </nz-table>
 
-<button nz-button nzType="primary" [nzSize]="size">
+<button nz-button nzType="primary" [nzSize]="size" (click)="loadDataProceso()">
     Buscar
 </button>
 <button routerLink="/obtencion-deuda" nz-button nzType="primary" [nzSize]="size">
@@ -88,7 +96,7 @@
 <button nz-button nzType="primary" [nzSize]="size">
     Anular
 </button>
-<button nz-button nzType="primary" [nzSize]="size">
+<button nz-button nzType="primary" [nzSize]="size" (click)="detalleProceso()">
     Detalle
 </button>
 <button nz-button nzType="primary" [nzSize]="size">

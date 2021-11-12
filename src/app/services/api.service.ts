@@ -10,7 +10,8 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  urlApi: string = 'https://backendmdsb.latamdeveloper.com/api/v1/';
+  // urlApi: string = 'https://backendmdsb.latamdeveloper.com/api/v1/';
+  urlApi: string = 'https://api.municallao.gob.pe/mdsb/public/v1/';
 
   getQuery(query: string) {
     const url = `${ this.urlApi + query }`;
@@ -22,8 +23,16 @@ export class ApiService {
     return this.httpClient.post(url, params);
   }
 
+  getDataTipoValor(data: object) {
+    return this.postQuery('general/valores/listar', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   getDataProceso(data: object) {
-    return this.postQuery('mant-proc-deuda', data).pipe(
+    return this.postQuery('valores/proceso/listar', data).pipe(
       map(data => {
         return data;
       })

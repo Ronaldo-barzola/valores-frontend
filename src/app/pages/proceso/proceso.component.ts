@@ -19,8 +19,17 @@ interface Person {
 export class ProcesoComponent implements OnInit {
   validateForm!: FormGroup;
   size: NzButtonSize = 'small';
-  date = null;
-  dataProceso: any;
+  fecIni: any = null;
+  fecFin: any = null;
+  tipoContrib: string = '';
+  tipoValor: string = '';
+  codContrib: string = '';
+  nomContrib: string = '';
+  disabled: boolean = true;
+  actualDetalleProcesoId: string = '';
+  
+  dataProceso: any = [];
+  dataTipoValor: any = [];
   
 
   onChange(result: Date): void {
@@ -47,7 +56,13 @@ export class ProcesoComponent implements OnInit {
     }
   ];
 
-
+  traduceTipVal(tipval: string){
+    if(tipval == '1'){
+      return 'Impuesto Predial';
+    }else{
+      return 'Arbitrios'
+    }
+  }
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -60,9 +75,10 @@ export class ProcesoComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
 
     this.loadDataProceso();
+    this.fillTipoValor();
 
     this.validateForm = this.fb.group({
       fecha: [null, [Validators.required]],
@@ -73,8 +89,26 @@ export class ProcesoComponent implements OnInit {
     });
   }
 
+  fillTipoValor(){
+    const data_post = {
+      p_tipval: 1
+    };
+
+    this.api.getDataTipoValor(data_post).subscribe((data: any) => {
+      console.log(data);
+      this.dataTipoValor = data;
+    });
+  }
+
   loadDataProceso(){
-    const data_post = {};
+    const data_post = {
+      p_fecini: this.fecIni,
+      p_fecfin: this.fecFin,
+      p_tipcon: this.tipoContrib,
+      p_tvalor: this.tipoValor,
+      p_codcon: this.codContrib,
+      p_nomcon: this.nomContrib,
+    };
 
     this.api.getDataProceso(data_post).subscribe((data: any) => {
       console.log(data);
@@ -82,7 +116,11 @@ export class ProcesoComponent implements OnInit {
     });
   }
 
-  detalleProceso(numpro: number){
-    this.router.navigate(['/listado-contrib', numpro]);
+  changeActualDetalleProceso(actualDetalle: string){
+    this.actualDetalleProcesoId = actualDetalle;
+  }
+
+  detalleProceso(){
+    this.router.navigate(['/listado-contrib', this.actualDetalleProcesoId]);
   }
 }
