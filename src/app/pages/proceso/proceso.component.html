@@ -73,7 +73,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataProceso" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
+        <tr *ngFor="let data of dataProceso" id="row_data_proceso_{{data.pdl_id}}" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
             <td style="text-align:center;">{{data.pdl_id}}</td>
             <td style="text-align:center;">{{data.pdl_fecpro | date:'Y-MM-dd'}}</td>
             <!-- <td style="text-align:center;">{{data.pdl_tipcon}}</td> -->
