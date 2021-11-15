@@ -73,7 +73,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataProceso" id="row_data_proceso_{{data.pdl_id}}" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
+        <tr *ngFor="let data of dataProceso" id="row_data_proceso_{{data.pdl_id}}" class="proceso_selectable_row" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
             <td style="text-align:center;">{{data.pdl_id}}</td>
             <td style="text-align:center;">{{data.pdl_fecpro | date:'Y-MM-dd'}}</td>
             <!-- <td style="text-align:center;">{{data.pdl_tipcon}}</td> -->
@@ -87,18 +87,8 @@
     </tbody>
 </nz-table>
 
-<button nz-button nzType="primary" [nzSize]="size" (click)="loadDataProceso()">
-    Buscar
-</button>
-<button routerLink="/obtencion-deuda" nz-button nzType="primary" [nzSize]="size">
-    Nuevo
-</button>
-<button nz-button nzType="primary" [nzSize]="size">
-    Anular
-</button>
-<button nz-button nzType="primary" [nzSize]="size" (click)="detalleProceso()">
-    Detalle
-</button>
-<button nz-button nzType="primary" [nzSize]="size">
-    Excel
-</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="loadDataProceso()">Buscar</button>
+<button routerLink="/obtencion-deuda" nz-button nzType="primary" [nzSize]="size">Nuevo</button>
+<button nz-button nzType="primary" [nzSize]="size">Anular</button>
+<button id="btn_detalle_proceso" nz-button nzType="primary" [nzSize]="size" (click)="detalleProceso()" disabled>Detalle</button>
+<button nz-button nzType="primary" [nzSize]="size">Excel</button>

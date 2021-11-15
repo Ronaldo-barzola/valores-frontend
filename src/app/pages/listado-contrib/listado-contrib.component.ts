@@ -13,6 +13,7 @@ interface ItemData {
 @Component({
   selector: 'app-listado-contrib',
   templateUrl: './listado-contrib.component.html',
+  styleUrls: ['./listado-contrib.component.scss'],
 })
 export class ListadoContribComponent implements OnInit {
   listOfSelection = [
@@ -58,6 +59,7 @@ export class ListadoContribComponent implements OnInit {
   litNumProceso: string = '';
   litTituloA: string = '';
   litTituloB: string = '';
+  actualDetalleProcconId: string = '';
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
@@ -103,7 +105,7 @@ export class ListadoContribComponent implements OnInit {
 
   constructor(private api: ApiService, private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.paramNumProceso = this.route.snapshot.params.numpro;
 
     this.loadDataProceso();
@@ -111,69 +113,49 @@ export class ListadoContribComponent implements OnInit {
   }
 
   loadDataProceso(){
-    const data_post = {};
+    const data_post = {
+      p_pdlnid: this.paramNumProceso
+    };
 
-    this.api.getDataProceso(data_post).subscribe((data: any) => {
+    this.api.getDataProcesoDetalle(data_post).subscribe((data: any) => {
       console.log(data);
-      this.dataProceso = data;
-
-      this.dataProceso.forEach((element: any) => {
-        if(element.numpro == this.paramNumProceso){
-          this.litNumProceso = this.paramNumProceso.padStart(4, '0');
-          this.litTituloA = (element.tipcon).toUpperCase();
-          this.litTituloB = (element.tipval).toUpperCase();
-        }
-      });
+      
+      this.litNumProceso = this.paramNumProceso.padStart(4, '0');
+      this.litTituloA = (data[0].pdl_destri).toUpperCase();
     });
   }
 
   loadDetalleProceso(){
-    const data_post = {};
+    const data_post = {
+      p_pdlnid: this.paramNumProceso
+    };
 
-    this.api.getDataListado(data_post).subscribe((data: any) => {
+    this.api.getDataDeudaContri(data_post).subscribe((data: any) => {
       console.log(data);
       this.dataListado = data;
-
-      this.dataListado.forEach((element: any) => {
-        if(element.nompro == this.paramNumProceso){
-          this.dataListadoFilter.push(element);
-          this.dataListadoFilter2.push(element);
-        }
-      });
-
-      this.dataListadoFilter.forEach((element: any) => {
-        let acumuladoMoncin = 0;
-
-        this.dataListadoFilter2.forEach((element2: any) => {
-          if(element.codcon == element2.codcon){
-            acumuladoMoncin = (acumuladoMoncin + parseFloat(element2.moncin));
-          }
-        });
-
-        this.dataListadoAcumulado.push({
-          codcon: element.codcon,
-          razsoc: element.razsoc,
-          monsum: acumuladoMoncin
-        });
-      });
-
-      const removeDupliactes = (values: any) => {
-        let concatArray = values.map((eachValue: any) => {
-          return Object.values(eachValue).join('')
-        })
-        let filterValues = values.filter((value: any, index: any) => {
-          return concatArray.indexOf(concatArray[index]) === index
-      
-        })
-        return filterValues
-      }
-      
-      this.dataListadoAcumuladoFinal = removeDupliactes(this.dataListadoAcumulado);
-
-      console.log(this.dataListadoFilter);
-      console.log(this.dataListadoAcumulado);
-      console.log(this.dataListadoAcumuladoFinal);
     });
+  }
+
+  regresarProcesos(){
+    this.router.navigate(['/proceso']);
+  }
+
+  changeActualDetalleProcCon(actualDetalle: string){
+    let all_rows = document.querySelectorAll('.proccon_selectable_row');
+    let element_row = document.getElementById('row_data_proccon_' + actualDetalle) as HTMLTableRowElement;
+    let btn_detalle_proccon = document.getElementById('btn_detalle_proccon') as HTMLButtonElement;
+    
+    this.actualDetalleProcconId = actualDetalle;
+    all_rows.forEach(element => {
+      element.classList.remove("proccon_selected");
+    });
+
+    element_row.classList.add("proccon_selected");
+    btn_detalle_proccon.removeAttribute('disabled');
+  }
+
+  detalleProccon(){
+    this.router.navigate(['/deuda-contrib', this.paramNumProceso, this.actualDetalleProcconId]);
   }
 
   sortFn = (a: ItemData, b: ItemData) => a.codigo.localeCompare(b.codigo);

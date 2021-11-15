@@ -1,5 +1,5 @@
-<h4 style="text-align: center;">LISTADO CONTRIBUYENTE PROCESO N° {{litNumProceso}} - {{litTituloA}} - {{litTituloB}}</h4>
-<nz-table #basicTable>
+<h4 style="text-align: center;">LISTADO CONTRIBUYENTE PROCESO N° {{litNumProceso}} - {{litTituloA}}</h4>
+<nz-table #basicTable [nzData]="dataListado">
     <thead>
         <tr>
             <th style="text-align:center;">Código</th>
@@ -8,17 +8,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataListadoAcumuladoFinal">
-            <td style="text-align:center;">{{ data.codcon }}</td>
-            <td style="text-align:center;">{{ data.razsoc }}</td>
-            <td style="text-align:center;">S/ {{ data.monsum | number: '1.2-2' }}</td>
+        <tr *ngFor="let data of dataListado" id="row_data_proccon_{{data.pdc_codcon}}" class="proccon_selectable_row" (click)="changeActualDetalleProcCon(data.pdc_codcon)" style="cursor:pointer;">
+            <td style="text-align:center;">{{ data.pdc_codcon }}</td>
+            <td style="text-align:center;">{{ data.pdc_nomcom }}</td>
+            <td style="text-align:center;">S/ {{ data.pdc_montot | number: '1.2-2' }}</td>
         </tr>
     </tbody>
 </nz-table>
 
-<button nz-button nzType="primary" [nzSize]="size">
-    Detalle
-</button>
-<button nz-button nzType="primary" [nzSize]="size">
-    Excel
-</button>
+<button id="btn_detalle_proccon" nz-button nzType="primary" [nzSize]="size" (click)="detalleProccon()" disabled>Detalle</button>
+<button nz-button nzType="primary" [nzSize]="size">Excel</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="regresarProcesos()">Regresar</button>

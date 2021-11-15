@@ -7,7 +7,7 @@ import { ObtencionDeudaComponent } from './pages/obtencion-deuda/obtencion-deuda
 
 const routes: Routes = [
   { path: 'proceso', component: ProcesoComponent },
-  { path: 'deuda-contrib', component: DeudaContribComponent },
+  { path: 'deuda-contrib/:numpro/:numcon', component: DeudaContribComponent },
   { path: 'listado-contrib/:numpro', component: ListadoContribComponent },
   { path: 'obtencion-deuda', component: ObtencionDeudaComponent },
 ];

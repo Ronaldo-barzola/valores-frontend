@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 
 interface ItemData {
@@ -89,7 +91,33 @@ export class DeudaContribComponent implements OnInit {
     console.log('onChange: ', result);
   }
 
-  constructor() {}
+  paramNumProceso: any;
+  paramCodContrib: any;
+  dataListado: any = [];
 
-  ngOnInit(): void {}
+  constructor(private api: ApiService, private router: Router, private route: ActivatedRoute){
+
+  }
+
+  ngOnInit(){
+    this.paramNumProceso = this.route.snapshot.params.numpro;
+    this.paramCodContrib = this.route.snapshot.params.numcon;
+
+    this.loadDataContribDetalle();
+  }
+
+  loadDataContribDetalle(){
+    const data_post = {
+      p_pdlnid: this.paramNumProceso,
+      p_codcon: this.paramCodContrib
+    };
+
+    this.api.getDataDeudaListar(data_post).subscribe((data: any) => {
+      this.dataListado = data;
+    });
+  }
+
+  regresarContribuyentes(){
+    this.router.navigate(['/listado-contrib', this.paramNumProceso]);
+  }
 }

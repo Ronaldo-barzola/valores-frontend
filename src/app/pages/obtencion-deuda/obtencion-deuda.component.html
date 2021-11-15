@@ -63,7 +63,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataListadoAcumuladoFinal">
+        <tr *ngFor="let data of dataListado">
             <td style="text-align:center;">{{ data.codcon }}</td>
             <td style="text-align:center;">{{ data.razsoc }}</td>
             <td style="text-align:center;">S/ {{ data.monsum | number: '1.2-2' }}</td>
@@ -72,9 +72,6 @@
     </tbody>
 </nz-table>
 
-<button id="btnProcesar" nz-button nzType="primary" [nzSize]="size" (click)="filtraInformacion()">
-    Procesar
-</button>
-<button nz-button nzType="primary" [nzSize]="size">
-    Grabar Selección
-</button>
+<button id="btnProcesar" nz-button nzType="primary" [nzSize]="size" (click)="filtraInformacion()">Procesar</button>
+<button nz-button nzType="primary" [nzSize]="size">Grabar Selección</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="regresarProcesos()">Regresar</button>

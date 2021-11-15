@@ -1,14 +1,10 @@
 <h4 style="text-align: center;">DEUDA CONTRIBUYENTE</h4>
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="dataListado">
     <thead>
         <tr>
-            <th style="text-align: center;">Código</th>
-            <th style="text-align: center;">Predio</th>
-            <th style="text-align: center;">Tributo</th>
-            <th style="text-align: center;">Año</th>
-            <th style="text-align: center;">Periodo</th>
-            <th style="text-align: center;">Secuencia</th>
-            <th style="text-align: center;">Tipo</th>
+            <th style="text-align: center;">Cod. Contribuyente</th>
+            <th style="text-align: center;">Cod. Predio</th>
+            <th style="text-align: center;">Año - Periodo</th>
             <th style="text-align: center;">Insoluto</th>
             <th style="text-align: center;">Emision</th>
             <th style="text-align: center;">Factor</th>
@@ -18,24 +14,17 @@
         </tr>
     </thead>
     <tbody>
-        <!-- <tr *ngFor="let data of basicTable.data">
-                <td>{{ data.name }}</td>
-                <td>{{ data.age }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>{{ data.address }}</td>
-                <td>
-                    <a>Action 一 {{ data.name }}</a>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <a>Delete</a>
-                </td>
-            </tr> -->
+        <tr *ngFor="let item of dataListado">
+            <td style="text-align:center;">{{ item.pdc_codcon }}</td>
+            <td style="text-align:center;">{{ item.pdc_codpre }}</td>
+            <td style="text-align:center;">{{ item.pdc_anytri }} - {{ (item.pdc_numper).padStart(2, '0') }}</td>
+            <td style="text-align:center;">{{ item.pdc_monins }}</td>
+            <td style="text-align:center;">{{ item.pdc_mongas }}</td>
+            <td style="text-align:center;">{{ item.pdc_monfac }}</td>
+            <td style="text-align:center;">{{ item.pdc_monmor }}</td>
+            <td style="text-align:center;">{{ item.pdc_montot }}</td>
+        </tr>
     </tbody>
 </nz-table>
-<button nz-button nzType="primary" [nzSize]="size">
-    Excel
-</button>
+<button nz-button nzType="primary" [nzSize]="size">Excel</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="regresarContribuyentes()">Regresar</button>

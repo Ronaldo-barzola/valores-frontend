@@ -39,8 +39,24 @@ export class ApiService {
     );
   }
 
-  getDataListado(data: object) {
-    return this.postQuery('list-contrib-proc', data).pipe(
+  getDataProcesoDetalle(data: object) {
+    return this.postQuery('valores/proceso/listar/detalle', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getDataDeudaContri(data: object) {
+    return this.postQuery('valores/deudacontri/listar', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getDataDeudaListar(data: object) {
+    return this.postQuery('valores/deudadetalle/listar', data).pipe(
       map(data => {
         return data;
       })

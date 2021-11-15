@@ -92,11 +92,8 @@ export class ObtencionDeudaComponent implements OnInit {
     }
   }
 
-  dataListado: any;
-  dataListadoFilter: any = [];
-  dataListadoFilter2: any = [];
-  dataListadoAcumulado: any = [];
-  dataListadoAcumuladoFinal: any = [];
+  paramNumProceso: any;
+  dataListado: any = [];
 
   filterTipoContrib: string = '';
   filterTipoValor: string = '';
@@ -122,65 +119,10 @@ export class ObtencionDeudaComponent implements OnInit {
   }
 
   filtraInformacion(){
-    
-    let btnProcesarDOM = document.getElementById('btnProcesar') as HTMLButtonElement;
-    btnProcesarDOM.setAttribute('disabled', 'disabled');
-    btnProcesarDOM.innerHTML = '<i class="fa fa-spinner fa-pulse"></i> Cargando...';
 
-    setTimeout(() => {
-      this.dataListado = [];
-      this.dataListadoFilter = [];
-      this.dataListadoFilter2 = [];
-      this.dataListadoAcumulado = [];
-      this.dataListadoAcumuladoFinal = [];
+  }
 
-      const data_post = {};
-
-      this.api.getDataListado(data_post).subscribe((data: any) => {
-        console.log(data);
-        this.dataListado = data;
-
-        this.dataListado.forEach((element: any) => {
-          if(element.nompro == this.filterTipoValor && element.anoges >= parseInt(this.filterAnioDesde) && element.anoges <= parseInt(this.filterAnioHasta)){
-            this.dataListadoFilter.push(element);
-            this.dataListadoFilter2.push(element);
-          }
-        });
-
-        this.dataListadoFilter.forEach((element: any) => {
-          let acumuladoMoncin = 0;
-
-          this.dataListadoFilter2.forEach((element2: any) => {
-            if(element.codcon == element2.codcon){
-              acumuladoMoncin = (acumuladoMoncin + parseFloat(element2.moncin));
-            }
-          });
-
-          if(acumuladoMoncin >= parseFloat(this.filterMontoDesde) && acumuladoMoncin <= parseFloat(this.filterMontoHasta)){
-            this.dataListadoAcumulado.push({
-              codcon: element.codcon,
-              razsoc: element.razsoc,
-              monsum: acumuladoMoncin
-            });
-          }
-        });
-
-        const removeDupliactes = (values: any) => {
-          let concatArray = values.map((eachValue: any) => {
-            return Object.values(eachValue).join('')
-          })
-          let filterValues = values.filter((value: any, index: any) => {
-            return concatArray.indexOf(concatArray[index]) === index
-        
-          })
-          return filterValues
-        }
-        
-        this.dataListadoAcumuladoFinal = removeDupliactes(this.dataListadoAcumulado);
-      });
-
-      btnProcesarDOM.innerHTML = 'Procesar';
-      btnProcesarDOM.removeAttribute('disabled');
-    }, 4500);
+  regresarProcesos(){
+    this.router.navigate(['/listado-contrib', this.paramNumProceso]);
   }
 }
