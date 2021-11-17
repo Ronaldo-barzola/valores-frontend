@@ -17,28 +17,31 @@ interface ItemData {
   styleUrls: ['./obtencion-deuda.component.scss'],
 })
 export class ObtencionDeudaComponent implements OnInit {
-
   listOfSelection = [
     {
       text: 'Select All Row',
       onSelect: () => {
         this.onAllChecked(true);
-      }
+      },
     },
     {
       text: 'Select Odd Row',
       onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
+        this.listOfCurrentPageData.forEach((data, index) =>
+          this.updateCheckedSet(data.id, index % 2 !== 0)
+        );
         this.refreshCheckedStatus();
-      }
+      },
     },
     {
       text: 'Select Even Row',
       onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
+        this.listOfCurrentPageData.forEach((data, index) =>
+          this.updateCheckedSet(data.id, index % 2 === 0)
+        );
         this.refreshCheckedStatus();
-      }
-    }
+      },
+    },
   ];
 
   checked = false;
@@ -61,7 +64,9 @@ export class ObtencionDeudaComponent implements OnInit {
   }
 
   onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
+    this.listOfCurrentPageData.forEach((item) =>
+      this.updateCheckedSet(item.id, value)
+    );
     this.refreshCheckedStatus();
   }
 
@@ -71,8 +76,13 @@ export class ObtencionDeudaComponent implements OnInit {
   }
 
   refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    this.checked = this.listOfCurrentPageData.every((item) =>
+      this.setOfCheckedId.has(item.id)
+    );
+    this.indeterminate =
+      this.listOfCurrentPageData.some((item) =>
+        this.setOfCheckedId.has(item.id)
+      ) && !this.checked;
   }
 
   validateForm!: FormGroup;
@@ -102,11 +112,14 @@ export class ObtencionDeudaComponent implements OnInit {
   filterMontoDesde: string = '';
   filterMontoHasta: string = '';
 
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-
-
     this.validateForm = this.fb.group({
       tipoContri: [null, [Validators.required]],
       tipoValor: [null, [Validators.required]],
@@ -114,15 +127,29 @@ export class ObtencionDeudaComponent implements OnInit {
       anioHasta: [null, [Validators.required]],
       montoDesde: [null, [Validators.required]],
       montoHasta: [null, [Validators.required]],
-      
     });
   }
 
-  filtraInformacion(){
+  filtraInformacion() {
+    // let btnSend = document.getElementById('btnSendAyuda') as HTMLButtonElement;
 
+    // btnSend.disabled = true;
+    // btnSend.innerHTML = '<i class="fa fa-spinner fa-pulse fa-fw"></i> Enviando...';
+
+    const formData = new FormData();
+    formData.append('p_anoini', this.filterAnioDesde);
+    formData.append('p_anofin', this.filterAnioHasta);
+    formData.append('p_tipcon', this.filterTipoContrib);
+    formData.append('p_tipval', this.filterTipoValor);
+    formData.append('p_monini', this.filterMontoDesde);
+    formData.append('p_monfin', this.filterMontoHasta);
+
+    this.api.postDataProceso(formData).subscribe((data: any) => {});
+
+    this.router.navigate(['/proceso']);
   }
 
-  regresarProcesos(){
+  regresarProcesos() {
     this.router.navigate(['/listado-contrib', this.paramNumProceso]);
   }
 }

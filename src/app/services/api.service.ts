@@ -63,4 +63,12 @@ export class ApiService {
     );
   }
 
+  postDataProceso(data: object) {
+    return this.postQuery('valores/procdeuda/guardar', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }
