@@ -1,5 +1,5 @@
 <h4 style="text-align: center;">LISTADO CONTRIBUYENTE PROCESO N° {{litNumProceso}} - {{litTituloA}}</h4>
-<nz-table #basicTable [nzData]="dataListado">
+<nz-table #editRowTable [nzData]="dataListado" [nzSize]="settingValue.size" nzShowPagination nzShowSizeChanger>
     <thead>
         <tr>
             <th style="text-align:center;">Código</th>
@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataListado" id="row_data_proccon_{{data.pdc_codcon}}" class="proccon_selectable_row" (click)="changeActualDetalleProcCon(data.pdc_codcon)" style="cursor:pointer;">
+        <tr *ngFor="let data of editRowTable.data" id="row_data_proccon_{{data.pdc_codcon}}" class="proccon_selectable_row" (click)="changeActualDetalleProcCon(data.pdc_codcon)" style="cursor:pointer;">
             <td style="text-align:center;">{{ data.pdc_codcon }}</td>
             <td style="text-align:center;">{{ data.pdc_nomcom }}</td>
             <td style="text-align:center;">S/ {{ data.pdc_montot | number: '1.2-2' }}</td>

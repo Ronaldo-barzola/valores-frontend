@@ -32,6 +32,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // Import what you need. RECOMMENDED. ✔️
 import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
+import { LoteComponent } from './pages/lote/lote.component';
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill ];
 
 registerLocaleData(en);
@@ -46,6 +47,7 @@ registerLocaleData(en);
     ObtencionDeudaComponent,
     ListadoContribComponent,
     DeudaContribComponent,
+    LoteComponent,
   ],
   imports: [
     BrowserModule,

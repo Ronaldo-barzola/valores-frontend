@@ -24,7 +24,23 @@ export class ApiService {
   }
 
   getDataTipoValor(data: object) {
-    return this.postQuery('general/valores/listar', data).pipe(
+    return this.postQuery('general/tipovalor/listar', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getDataTipoContribuyente(data: object) {
+    return this.postQuery('general/tipocontri/listar', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getDataTipoUbicacion(data: object) {
+    return this.postQuery('general/ubicacion/listar', data).pipe(
       map(data => {
         return data;
       })

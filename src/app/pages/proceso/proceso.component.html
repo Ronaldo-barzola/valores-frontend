@@ -1,48 +1,58 @@
 <h4 style="text-align: center;">MANTENIMIENTO PROCESO DE DEUDA - VALORES</h4>
 <nz-card style="width:100%;" nzTitle="Filtros de búsqueda">
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <div nz-row [nzGutter]="20">
-            <div nz-col class="gutter-row" [nzSpan]="4">
+        <div nz-row [nzGutter]="24">
+            <div nz-col class="gutter-row" [nzSpan]="8">
                 <nz-form-item>
-                    <nz-form-label nzRequired nzFor="email">Fecha Inicio</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-                        <nz-date-picker formControlName="fecha" [(ngModel)]="fecIni" (ngModelChange)="onChange($event)"></nz-date-picker>
+                    <nz-form-label nzFor="email">Fecha Inicio</nz-form-label>
+                    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+                        <nz-date-picker style="width: 100%" formControlName="fecha" [(ngModel)]="fecIni" (ngModelChange)="onChange($event)"></nz-date-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div nz-col class="gutter-row" [nzSpan]="4">
+            <div nz-col class="gutter-row" [nzSpan]="8">
                 <nz-form-item>
-                    <nz-form-label nzRequired nzFor="">Fecha Fin</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-                        <nz-date-picker formControlName="fecha" [(ngModel)]="fecFin" (ngModelChange)="onChange($event)"></nz-date-picker>
+                    <nz-form-label nzFor="">Fecha Fin</nz-form-label>
+                    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+                        <nz-date-picker style="width: 100%" formControlName="fecha" [(ngModel)]="fecFin" (ngModelChange)="onChange($event)"></nz-date-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div nz-col class="gutter-row" [nzSpan]="6">
+            <div nz-col class="gutter-row" [nzSpan]="8">
                 <nz-form-item>
                     <nz-form-label>Tipo de Contribuyente</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoContri" name="select-validate" [(ngModel)]="tipoContrib" [nzDisabled]="true">
-                            <nz-option nzValue="Principales" nzLabel="Principales"></nz-option>
-                            <nz-option nzValue="Medianos" nzLabel="Medianos"></nz-option>
-                            <nz-option nzValue="Pequeños" nzLabel="Pequeños"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div nz-col class="gutter-row" [nzSpan]="6">
-                <nz-form-item>
-                    <nz-form-label>Tipo de Valor</nz-form-label>
-                    <nz-form-control>
-                        <nz-select formControlName="tipoValor" name="select-validate" [(ngModel)]="tipoValor">
-                            <nz-option nzValue="1" nzLabel="Impuesto Predial"></nz-option>
-                            <nz-option nzValue="3" nzLabel="Arbitrios"></nz-option>
+                        <nz-select formControlName="tipoContri" name="select-validate" [(ngModel)]="tipoContrib">
+                            <nz-option *ngFor="let item of dataTipoContribuyente" [nzLabel]="item.descon" [nzValue]="item.tipcon"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>
         </div>
-        <div nz-row [nzGutter]="20">
+        <div nz-row [nzGutter]="24">
+            <div nz-col class="gutter-row" [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Tipo de Valor</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="tipoValor" name="select-validate" [(ngModel)]="tipoValor">
+                            <nz-option *ngFor="let item of dataTipoValor" [nzLabel]="item.tva_descri" [nzValue]="item.tva_id"></nz-option>
+                            <!-- <nz-option nzValue="1" nzLabel="Impuesto Predial"></nz-option>
+                            <nz-option nzValue="3" nzLabel="Arbitrios"></nz-option> -->
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="8">
+                <nz-form-item>
+                    <nz-form-label>Sector</nz-form-label>
+                    <nz-form-control>
+                        <input type="text" nz-input formControlName="sector" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </div>
+        <!-- <div nz-row [nzGutter]="20">
             <div nz-col class="gutter-row" [nzSpan]="12">
                 <nz-form-item>
                     <nz-form-label nzRequired>Contribuyente &nbsp;</nz-form-label>
@@ -55,10 +65,10 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-        </div>
+        </div> -->
     </form>
 </nz-card>
-<nz-table #basicTable [nzData]="dataProceso">
+<nz-table [nzData]="dataProceso" [nzShowPagination]="settingValue.pagination" [nzLoading]="settingValue.loading" [nzSize]="settingValue.size" [nzPageSize]="10">
     <thead>
         <tr>
             <th style="text-align:center;">Proceso</th>
