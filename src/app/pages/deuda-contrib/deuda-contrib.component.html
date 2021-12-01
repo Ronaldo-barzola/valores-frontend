@@ -1,5 +1,5 @@
 <h4 style="text-align: center;">DEUDA CONTRIBUYENTE</h4>
-<nz-table #basicTable [nzData]="dataListado" [nzSize]="'small'">
+<nz-table #basicTable id="tableDeudaContrib" [nzData]="dataListado" [nzSize]="'small'">
     <thead>
         <tr>
             <th style="text-align: center;">Cod. Contribuyente</th>
@@ -26,5 +26,5 @@
         </tr>
     </tbody>
 </nz-table>
-<button nz-button nzType="primary" [nzSize]="size">Excel</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="exportarExcel()">Excel</button>
 <button nz-button nzType="primary" [nzSize]="size" (click)="regresarContribuyentes()">Regresar</button>

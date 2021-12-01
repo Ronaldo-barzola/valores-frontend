@@ -1,5 +1,5 @@
 <h4 style="text-align: center;">LISTADO CONTRIBUYENTE PROCESO N° {{litNumProceso}} - {{litTituloA}}</h4>
-<nz-table #editRowTable [nzData]="dataListado" [nzSize]="settingValue.size" nzShowPagination nzShowSizeChanger>
+<nz-table #editRowTable id="tableDetalleProceso" [nzData]="dataListado" [nzSize]="settingValue.size" nzShowPagination nzShowSizeChanger>
     <thead>
         <tr>
             <th style="text-align:center;">Código</th>
@@ -17,5 +17,5 @@
 </nz-table>
 
 <button id="btn_detalle_proccon" nz-button nzType="primary" [nzSize]="size" (click)="detalleProccon()" disabled>Detalle</button>
-<button nz-button nzType="primary" [nzSize]="size">Excel</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="exportarExcel()">Excel</button>
 <button nz-button nzType="primary" [nzSize]="size" (click)="regresarProcesos()">Regresar</button>
