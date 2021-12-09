@@ -68,7 +68,7 @@
         </div> -->
     </form>
 </nz-card>
-<nz-table [nzData]="dataProceso" [nzShowPagination]="settingValue.pagination" [nzLoading]="settingValue.loading" [nzSize]="settingValue.size" [nzPageSize]="10">
+<nz-table #tableProceso id="tableProceso" [nzData]="dataProceso" [nzShowPagination]="settingValue.pagination" [nzLoading]="settingValue.loading" [nzSize]="settingValue.size" [nzPageSize]="10">
     <thead>
         <tr>
             <th style="text-align:center;">Proceso</th>
@@ -83,7 +83,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataProceso" id="row_data_proceso_{{data.pdl_id}}" class="proceso_selectable_row" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
+        <tr *ngFor="let data of tableProceso.data" id="row_data_proceso_{{data.pdl_id}}" class="proceso_selectable_row" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
             <td style="text-align:center;">{{data.pdl_id}}</td>
             <td style="text-align:center;">{{data.pdl_fecpro | date:'Y-MM-dd'}}</td>
             <!-- <td style="text-align:center;">{{data.pdl_tipcon}}</td> -->
@@ -101,4 +101,4 @@
 <button routerLink="/obtencion-deuda" nz-button nzType="primary" [nzSize]="size">Nuevo</button>
 <button nz-button nzType="primary" [nzSize]="size">Anular</button>
 <button id="btn_detalle_proceso" nz-button nzType="primary" [nzSize]="size" (click)="detalleProceso()" disabled>Detalle</button>
-<button nz-button nzType="primary" [nzSize]="size">Excel</button>
+<button nz-button nzType="primary" [nzSize]="size" (click)="exportarExcel()">Excel</button>

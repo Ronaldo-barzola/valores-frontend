@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzTableLayout, NzTablePaginationPosition, NzTablePaginationType, NzTableSize } from 'ng-zorro-antd/table';
+import * as XLSX from 'xlsx';
 
 interface ItemData {
   id: number;
@@ -133,7 +134,7 @@ export class ListadoContribComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -164,6 +165,17 @@ export class ListadoContribComponent implements OnInit {
 
     this.loadDataProceso();
     this.loadDetalleProceso();
+  }
+
+  exportarExcel() {
+    let element = document.getElementById('tableDetalleProceso');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'proceso_detalle.xlsx');
+
   }
 
   loadDataProceso() {

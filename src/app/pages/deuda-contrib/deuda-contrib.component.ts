@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
+import * as XLSX from 'xlsx';
 
 interface ItemData {
   id: number;
@@ -104,6 +105,17 @@ export class DeudaContribComponent implements OnInit {
     this.paramCodContrib = this.route.snapshot.params.numcon;
 
     this.loadDataContribDetalle();
+  }
+
+  exportarExcel() {
+    let element = document.getElementById('tableDeudaContrib');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'deuda_contrib.xlsx');
+
   }
 
   loadDataContribDetalle(){

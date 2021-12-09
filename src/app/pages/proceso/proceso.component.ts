@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '@app/services/api.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import * as XLSX from 'xlsx';
 import {
   NzTableLayout,
   NzTablePaginationPosition,
@@ -111,7 +112,7 @@ export class ProcesoComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private message: NzMessageService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.settingForm = this.fb.group({
@@ -136,11 +137,12 @@ export class ProcesoComponent implements OnInit {
     });
 
     this.settingValue = this.settingForm.value;
-    
+
 
     this.loadDataProceso();
     this.fillTipoValor();
     this.fillTipoContribuyente();
+    // this.exportarExcel();
 
     this.validateForm = this.fb.group({
       fecha: [null, [Validators.required]],
@@ -149,6 +151,17 @@ export class ProcesoComponent implements OnInit {
       sector: [null, [Validators.required]],
       tipdfd: [null, [Validators.required]],
     });
+  }
+
+  exportarExcel() {
+    let element = document.getElementById('tableProceso');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'proceso_deuda.xlsx');
+
   }
 
   fillTipoValor() {
