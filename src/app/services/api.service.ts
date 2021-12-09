@@ -4,28 +4,27 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   // urlApi: string = 'https://backendmdsb.latamdeveloper.com/api/v1/';
   urlApi: string = 'https://api.municallao.gob.pe/mdsb/public/v1/';
 
   getQuery(query: string) {
-    const url = `${ this.urlApi + query }`;
+    const url = `${this.urlApi + query}`;
     return this.httpClient.get(url);
   }
 
   postQuery(query: string, params: any) {
-    const url = `${ this.urlApi + query }`;
+    const url = `${this.urlApi + query}`;
     return this.httpClient.post(url, params);
   }
 
   getDataTipoValor(data: object) {
     return this.postQuery('general/tipovalor/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -33,7 +32,7 @@ export class ApiService {
 
   getDataTipoContribuyente(data: object) {
     return this.postQuery('general/tipocontri/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -41,7 +40,7 @@ export class ApiService {
 
   getDataTipoUbicacion(data: object) {
     return this.postQuery('general/ubicacion/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -49,7 +48,7 @@ export class ApiService {
 
   getDataProceso(data: object) {
     return this.postQuery('valores/proceso/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -57,7 +56,7 @@ export class ApiService {
 
   getDataProcesoDetalle(data: object) {
     return this.postQuery('valores/proceso/listar/detalle', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -65,7 +64,7 @@ export class ApiService {
 
   getDataDeudaContri(data: object) {
     return this.postQuery('valores/deudacontri/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -73,7 +72,7 @@ export class ApiService {
 
   getDataDeudaListar(data: object) {
     return this.postQuery('valores/deudadetalle/listar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -81,10 +80,25 @@ export class ApiService {
 
   postDataProceso(data: object) {
     return this.postQuery('valores/procdeuda/guardar', data).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
   }
 
+  postDataLote(data: object) {
+    return this.postQuery('lotes/lotemision/guardar', data).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
+
+  getDataLoteListar(data: object) {
+    return this.postQuery('lotes/lotemision/listar', data).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
 }

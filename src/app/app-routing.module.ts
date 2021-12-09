@@ -5,6 +5,7 @@ import { DeudaContribComponent } from './pages/deuda-contrib/deuda-contrib.compo
 import { ListadoContribComponent } from './pages/listado-contrib/listado-contrib.component';
 import { ObtencionDeudaComponent } from './pages/obtencion-deuda/obtencion-deuda.component';
 import { LoteComponent } from './pages/lote/lote.component';
+import { LoteEmisionComponent } from './pages/lote-emision/lote-emision.component';
 
 const routes: Routes = [
   { path: 'proceso', component: ProcesoComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'listado-contrib/:numpro', component: ListadoContribComponent },
   { path: 'obtencion-deuda', component: ObtencionDeudaComponent },
   { path: 'lote', component: LoteComponent },
+  { path: 'lote-emision', component: LoteEmisionComponent },
 ];
 
 @NgModule({
