@@ -34,6 +34,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
 import { LoteComponent } from './pages/lote/lote.component';
 import { LoteEmisionComponent } from './pages/lote-emision/lote-emision.component';
+import { LoteListadoContribComponent } from './pages/lote-listado-contrib/lote-listado-contrib.component';
+import { LoteDeudaContribComponent } from './pages/lote-deuda-contrib/lote-deuda-contrib.component';
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill ];
 
 registerLocaleData(en);
@@ -50,6 +52,8 @@ registerLocaleData(en);
     DeudaContribComponent,
     LoteComponent,
     LoteEmisionComponent,
+    LoteListadoContribComponent,
+    LoteDeudaContribComponent
   ],
   imports: [
     BrowserModule,

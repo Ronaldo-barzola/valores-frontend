@@ -68,7 +68,7 @@
         </div> -->
     </form>
 </nz-card>
-<nz-table [nzData]="dataLote" [nzShowPagination]="settingValue.pagination" [nzLoading]="settingValue.loading" [nzSize]="settingValue.size" [nzPageSize]="10">
+<nz-table #tableProceso id="tableProceso" [nzData]="dataLote" [nzShowPagination]="settingValue.pagination" [nzLoading]="settingValue.loading" [nzSize]="settingValue.size" [nzPageSize]="10">
     <thead>
         <tr>
             <th style="text-align:center;">Proceso</th>
@@ -83,11 +83,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of dataLote" id="row_data_proceso_{{data.pdl_id}}" class="proceso_selectable_row" (click)="changeActualDetalleProceso(data.pdl_id)" style="cursor:pointer;">
+        <tr *ngFor="let data of tableProceso.data" id="row_data_proceso_{{data.elc_id}}" class="proceso_selectable_row" (click)="changeActualDetalleProceso(data.elc_id)" style="cursor:pointer;">
             <td style="text-align:center;">{{data.elc_id}}</td>
             <td style="text-align:center;">{{data.elc_fecpro | date:'Y-MM-dd'}}</td>
-            <!-- <td style="text-align:center;">{{data.pdl_tipcon}}</td> -->
-            <td style="text-align:center;">{{traduceTipVal(data.pdl_tipval)}}</td>
+            <!-- <td style="text-align:center;">{{data.elc_tipcon}}</td> -->
+            <td style="text-align:center;">{{traduceTipVal(data.elc_tipval)}}</td>
             <td style="text-align:center;">{{data.elc_anoini}}</td>
             <td style="text-align:center;">{{data.elc_anofin}}</td>
             <td style="text-align:center;">S/ {{data.elc_monini | number: '1.2-2'}}</td>

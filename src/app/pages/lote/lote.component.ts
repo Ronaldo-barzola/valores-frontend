@@ -162,14 +162,12 @@ export class LoteComponent implements OnInit {
 
   changeActualDetalleProceso(actualDetalle: string) {
     let all_rows = document.querySelectorAll('.proceso_selectable_row');
-    let element_row = document.getElementById(
-      'row_data_proceso_' + actualDetalle
-    ) as HTMLTableRowElement;
-    let btn_detalle_proceso = document.getElementById(
-      'btn_detalle_proceso'
-    ) as HTMLButtonElement;
+    let element_row = document.getElementById('row_data_proceso_' + actualDetalle) as HTMLTableRowElement;
+    let btn_detalle_proceso = document.getElementById('btn_detalle_proceso') as HTMLButtonElement;
+    console.log('Rows:', all_rows);
 
     this.actualDetalleProcesoId = actualDetalle;
+
     all_rows.forEach((element) => {
       element.classList.remove('proceso_selected');
     });
@@ -179,6 +177,6 @@ export class LoteComponent implements OnInit {
   }
 
   detalleProceso() {
-    this.router.navigate(['/listado-contrib', this.actualDetalleProcesoId]);
+    this.router.navigate(['/lote-listado-contrib', this.actualDetalleProcesoId]);
   }
 }

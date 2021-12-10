@@ -101,4 +101,28 @@ export class ApiService {
       })
     );
   }
+
+  getDataLoteDetalleListar(data: object) {
+    return this.postQuery('lotes/lotedetalle/listar', data).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
+
+  getDataLoteListadoContrib(data: object) {
+    return this.postQuery('lotes/lotemision/listado-contrib', data).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
+
+  getDataLoteDeudaContrib(data: object) {
+    return this.postQuery('lotes/lotemision/deuda-contrib', data).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
 }

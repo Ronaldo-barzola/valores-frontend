@@ -204,12 +204,8 @@ export class ProcesoComponent implements OnInit {
 
   changeActualDetalleProceso(actualDetalle: string) {
     let all_rows = document.querySelectorAll('.proceso_selectable_row');
-    let element_row = document.getElementById(
-      'row_data_proceso_' + actualDetalle
-    ) as HTMLTableRowElement;
-    let btn_detalle_proceso = document.getElementById(
-      'btn_detalle_proceso'
-    ) as HTMLButtonElement;
+    let element_row = document.getElementById('row_data_proceso_' + actualDetalle) as HTMLTableRowElement;
+    let btn_detalle_proceso = document.getElementById('btn_detalle_proceso') as HTMLButtonElement;
 
     this.actualDetalleProcesoId = actualDetalle;
     all_rows.forEach((element) => {
