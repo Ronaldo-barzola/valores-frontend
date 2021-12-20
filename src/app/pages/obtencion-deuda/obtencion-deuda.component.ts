@@ -183,31 +183,52 @@ export class ObtencionDeudaComponent implements OnInit {
     // btnSend.disabled = true;
     // btnSend.innerHTML = '<i class="fa fa-spinner fa-pulse fa-fw"></i> Enviando...';
 
-    const formData = new FormData();
-    formData.append('p_anoini', this.filterAnioDesde);
-    formData.append('p_anofin', this.filterAnioHasta);
-    formData.append('p_perini', this.filterPerIni);
-    formData.append('p_perfin', this.filterPerFin);
-    formData.append('p_tipcon', this.filterTipoContrib);
-    formData.append('p_tipval', this.filterTipoValor);
-    formData.append('p_disdfu', this.filterUbicacion);
-    formData.append('p_sector', this.filterSector);
-    formData.append('p_monini', this.filterMontoDesde);
-    formData.append('p_monfin', this.filterMontoHasta);
+    // const formData = new FormData();
+    // formData.append('p_anoini', this.filterAnioDesde);
+    // formData.append('p_anofin', this.filterAnioHasta);
+    // formData.append('p_perini', this.filterPerIni);
+    // formData.append('p_perfin', this.filterPerFin);
+    // formData.append('p_tipcon', this.filterTipoContrib);
+    // formData.append('p_tipval', this.filterTipoValor);
+    // formData.append('p_disdfu', this.filterUbicacion);
+    // formData.append('p_sector', this.filterSector);
+    // formData.append('p_monini', this.filterMontoDesde);
+    // formData.append('p_monfin', this.filterMontoHasta);
 
-    console.log('p_anoini' + this.filterAnioDesde);
-    console.log('p_anofin' + this.filterAnioHasta);
-    console.log('p_perini' + this.filterPerIni);
-    console.log('p_perfin' + this.filterPerFin);
-    console.log('p_tipcon' + this.filterTipoContrib);
-    console.log('p_tipval' + this.filterTipoValor);
-    console.log('p_disdfu' + this.filterUbicacion);
-    console.log('p_sector' + this.filterSector);
-    console.log('p_monini' + this.filterMontoDesde);
-    console.log('p_monfin' + this.filterMontoHasta);
-    this.api.postDataProceso(formData).subscribe((data: any) => {});
-    this.message.create('success', `This is a message of success`);
-    this.router.navigate(['/proceso']);
+    // console.log('p_anoini', this.filterAnioDesde);
+    // console.log('p_anofin', this.filterAnioHasta);
+    // console.log('p_perini', this.filterPerIni);
+    // console.log('p_perfin', this.filterPerFin);
+    // console.log('p_tipcon', this.filterTipoContrib);
+    // console.log('p_tipval', this.filterTipoValor);
+    // console.log('p_disdfu', this.filterUbicacion);
+    // console.log('p_sector', this.filterSector);
+    // console.log('p_monini', this.filterMontoDesde);
+    // console.log('p_monfin', this.filterMontoHasta);
+
+    const data_post = {
+      p_anoini: this.filterAnioDesde,
+      p_anofin: this.filterAnioHasta,
+      p_perini: this.filterPerIni,
+      p_perfin: this.filterPerFin,
+      p_tipcon: this.filterTipoContrib,
+      p_tipval: this.filterTipoValor,
+      p_disdfu: this.filterUbicacion,
+      p_sector: this.filterSector,
+      p_monini: this.filterMontoDesde,
+      p_monfin: this.filterMontoHasta
+    }
+
+    console.log('==================================');
+    console.log('Enviado:', data_post);
+    
+    this.api.postDataProceso(data_post).subscribe((data: any) => {
+      console.log(data);
+    });
+
+    this.message.create('success', `Nuevo proceso generado correctamente.`);
+
+    // this.router.navigate(['/proceso']);
   }
 
   regresarProcesos() {

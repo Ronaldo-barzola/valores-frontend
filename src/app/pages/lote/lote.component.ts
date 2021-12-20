@@ -4,12 +4,8 @@ import { NzButtonSize } from 'ng-zorro-antd/button';
 import { ApiService } from '@app/services/api.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import {
-  NzTableLayout,
-  NzTablePaginationPosition,
-  NzTablePaginationType,
-  NzTableSize,
-} from 'ng-zorro-antd/table';
+import { NzTableLayout, NzTablePaginationPosition, NzTablePaginationType, NzTableSize } from 'ng-zorro-antd/table';
+import moment from 'moment';
 
 interface Setting {
   bordered: boolean;
@@ -40,6 +36,7 @@ interface Setting {
 export class LoteComponent implements OnInit {
   validateForm!: FormGroup;
   size: NzButtonSize = 'small';
+  fecAhora: any = new Date();
   fecIni: any = null;
   fecFin: any = null;
   tipoContrib: string = '';
@@ -54,10 +51,6 @@ export class LoteComponent implements OnInit {
   dataLote: any = [];
   dataTipoValor: any = [];
   dataTipoContribuyente: any;
-
-  onChange(result: Date): void {
-    console.log('onChange: ', result);
-  }
 
   traduceTipVal(tipval: string) {
     if (tipval == '1') {
@@ -110,9 +103,12 @@ export class LoteComponent implements OnInit {
 
     this.settingValue = this.settingForm.value;
 
-    this.loadDataProceso();
+    console.log('FECHA TEST: ', moment().format('YYYY/MM/DD'));
+    
     this.fillTipoValor();
     this.fillTipoContribuyente();
+
+    this.loadDataProceso();
 
     this.validateForm = this.fb.group({
       fecha: [null, [Validators.required]],
@@ -129,7 +125,6 @@ export class LoteComponent implements OnInit {
     };
 
     this.api.getDataTipoValor(data_post).subscribe((data: any) => {
-      console.log(data);
       this.dataTipoValor = data;
     });
   }
@@ -140,12 +135,13 @@ export class LoteComponent implements OnInit {
     };
 
     this.api.getDataTipoContribuyente(data_post).subscribe((data: any) => {
-      console.log(data);
       this.dataTipoContribuyente = data;
     });
   }
 
   loadDataProceso() {
+    // this.fecIni = moment().format('YYYY/MM/DD');
+
     const data_post = {
       p_fecini: this.fecIni,
       p_fecfin: this.fecFin,
@@ -155,7 +151,6 @@ export class LoteComponent implements OnInit {
     };
 
     this.api.getDataLoteListar(data_post).subscribe((data: any) => {
-      console.log(data);
       this.dataLote = data;
     });
   }
